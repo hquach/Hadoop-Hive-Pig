@@ -1,0 +1,22 @@
+# (cat data | map | sort | reduce)
+
+echo "foo foo quux labs foo bar quux" | /home/hduser/mapper.py
+
+echo "foo foo quux labs foo bar quux" | /home/hduser/mapper.py | sort -k1,1 | /home/hduser/reducer.py
+
+cat /tmp/gutenberg/20417-8.txt | /home/hduser/mapper.py
+
+
+
+
+
+hduser@ubuntu:/usr/local/hadoop$ bin/hadoop jar contrib/streaming/hadoop-*streaming*.jar \
+-file /home/hduser/mapper.py    -mapper /home/hduser/mapper.py \
+-file /home/hduser/reducer.py   -reducer /home/hduser/reducer.py \
+-input /user/hduser/gutenberg/* -output /user/hduser/gutenberg-output
+
+
+#http://localhost:50030/ 
+
+# inspect the contents of the file with the dfs -cat command:
+bin/hadoop dfs -cat /user/hduser/gutenberg-output/part-00000
